@@ -10,6 +10,7 @@ class Database:
     """
     def __init__(self, cfg_from_file=True):
         self.cfg_from_file = cfg_from_file
+        self.engine = ''
         if cfg_from_file:
             self.db_config = "db-config.csv"
         else:
@@ -28,9 +29,13 @@ class Database:
     def connect(self, dialect, driver, username, password, host, port, database):
         connection_string = '{}+{}://{}:{}@{}:{}/{}'.format(dialect, driver, username, password, host, port, database)
         print('connection_string: ', connection_string)
-        engine = sqlalchemy.engine.create_engine(connection_string, echo=True)
-        print('engine: ', engine)
+        self.engine = sqlalchemy.engine.create_engine(connection_string, echo=True)
+        print('engine: ', self.engine)
         try:
-            engine.connect()
+            self.engine.connect()
         except Exception as e:
             print('DB connection failed: ', e)
+
+    def user_in_db(self, login):
+        user_table_df = pd.read_sql('users', self.engine)
+        print('user_table_df: ', user_table_df)
