@@ -1,5 +1,6 @@
 venv/
 private/
+common/user.py
 
 *.pyc
 __pycache__/

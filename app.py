@@ -2,15 +2,16 @@ from flask import *
 from common import database
 
 
-app = Flask(__name__)
+APP = Flask(__name__)
+SESSIONS = {}
 
 
-@app.route('/')
+@APP.route('/')
 def home():
     template = "/coming-soon/coming-soon.html"
     return render_template(template)
 
 
 if __name__ == '__main__':
-    database.Database()
-    app.run(debug=True)
+    database.Database(cfg_from_file=False)
+    APP.run(debug=True)
