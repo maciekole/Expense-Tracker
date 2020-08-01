@@ -1,5 +1,6 @@
 from flask import *
-from common import database
+from common.database import Database
+from common.user import User
 
 
 APP = Flask(__name__)
@@ -13,5 +14,5 @@ def home():
 
 
 if __name__ == '__main__':
-    database.Database(cfg_from_file=False)
+    Database(cfg_from_file=False)
     APP.run(debug=True)
